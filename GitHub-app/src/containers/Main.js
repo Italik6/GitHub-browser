@@ -4,20 +4,21 @@ import { Loader } from "../components/Loader";
 import { SearchInput } from "../components/SearchInput";
 import { UserInfo } from "../components/UserInfo";
 import { Repos } from "../components/Repos";
+import { connect } from "react-redux";
+import { fetchInfo, fetchRepos } from "../actions/infoActions";
+import PropTypes from "prop-types";
 
 const api = {
-  baseUrl: "https://api.github.com/users/"
+  baseUrl: "https://api.github.com/users/Italik6"
 };
 
-export class Main extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       userInput: "",
-      user: {},
-      loader: false,
-      repos: []
+      loader: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -44,41 +45,15 @@ export class Main extends Component {
       this.handleSearch();
     }
   };
-// get requests
+  // get requests
   fetchRepos = () => {
-    let self = this;
-    self.setState({ loader: true });
-    const url = api.baseUrl + self.state.userInput + "/repos";
-
-    axios
-      .get(url)
-      .then(function(response) {
-        // handle success
-        self.setState({ repos: response.data, loader: false });
-        console.log(response);
-      })
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
+    let userInput = this.state.userInput;
+    this.props.fetchRepos(userInput);
   };
 
   fetchUserInfo = () => {
-    let self = this;
-    self.setState({ loader: true });
-    const url = api.baseUrl + self.state.userInput;
-
-    axios
-      .get(url)
-      .then(function(response) {
-        // handle success
-        self.setState({ user: response.data, loader: false });
-        console.log(response);
-      })
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
+    let userInput = this.state.userInput;
+    this.props.fetchInfo(userInput);
   };
 
   render() {
@@ -90,10 +65,25 @@ export class Main extends Component {
           onClick={this.handleSearch}
           onKeyPress={this.handleKeyPress}
         />
-        {this.state.loader ? <Loader /> : null}
-        <UserInfo onClick={this.handleClick} user={this.state.user} />
-        <Repos repos={this.state.repos} />
+        {/* {this.state.loader ? <Loader /> : null} */}
+        <UserInfo onClick={this.handleClick} user={this.props.info} />
+        <Repos repos={this.props.repos} />
       </div>
     );
   }
 }
+
+Main.propTypes = {
+  fetchInfo: PropTypes.func.isRequired,
+  fetchRepos: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  info: state.info.info,
+  repos: state.repos.repos
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchInfo, fetchRepos }
+)(Main);
