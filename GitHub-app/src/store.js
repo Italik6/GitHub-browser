@@ -9,6 +9,7 @@ const store = createStore(
   initialState,
   compose(
     applyMiddleware(...middleware),
+    // Add redux devtools for chrome browser 
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );

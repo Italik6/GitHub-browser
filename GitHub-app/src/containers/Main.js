@@ -1,59 +1,43 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Loader } from "../components/Loader";
 import { SearchInput } from "../components/SearchInput";
 import { UserInfo } from "../components/UserInfo";
+import { Loader } from "../components/Loader";
 import { Repos } from "../components/Repos";
 import { connect } from "react-redux";
 import { fetchInfo, fetchRepos } from "../actions/infoActions";
 import PropTypes from "prop-types";
-
-const api = {
-  baseUrl: "https://api.github.com/users/Italik6"
-};
+import { bindActionCreators } from "redux";
 
 class Main extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userInput: "",
-      loader: false
+      userInput: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.fetchUserInfo = this.fetchUserInfo.bind(this);
+    this.handleFetchUserInfo = this.handleFetchUserInfo.bind(this);
   }
 
   handleChange = e => {
     this.setState({ userInput: e.target.value });
   };
 
-  handleSearch = () => {
-    this.fetchUserInfo();
-  };
-
-  handleClick = () => {
-    this.fetchRepos();
-  };
-
   handleKeyPress = e => {
     if (e.key === "Enter") {
-      this.handleSearch();
+      this.handleFetchUserInfo();
     }
   };
-  // get requests
-  fetchRepos = () => {
-    let userInput = this.state.userInput;
-    this.props.fetchRepos(userInput);
-  };
 
-  fetchUserInfo = () => {
-    let userInput = this.state.userInput;
-    this.props.fetchInfo(userInput);
+  handleFetchUserInfo = () => {
+    this.props.createLoadingSelector;
+    this.props.fetchRepos(this.state.userInput);
+    this.props.fetchInfo(this.state.userInput);
+    // reset input value
+    const userInputValue = document.getElementById("search");
+    userInputValue != null ? (userInputValue.value = "") : null;
   };
 
   render() {
@@ -62,12 +46,12 @@ class Main extends Component {
         <h1>GitHub App</h1>
         <SearchInput
           onChange={this.handleChange}
-          onClick={this.handleSearch}
+          onClick={this.handleFetchUserInfo}
           onKeyPress={this.handleKeyPress}
         />
-        {/* {this.state.loader ? <Loader /> : null} */}
-        <UserInfo onClick={this.handleClick} user={this.props.info} />
+        <UserInfo user={this.props.info} />
         <Repos repos={this.props.repos} />
+        {this.props.isFetching ? <Loader /> : null}
       </div>
     );
   }
@@ -80,10 +64,15 @@ Main.propTypes = {
 
 const mapStateToProps = state => ({
   info: state.info.info,
+  isFetching: state.isFetching.isFetching,
   repos: state.repos.repos
 });
 
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ fetchInfo, fetchRepos }, dispatch);
+};
+
 export default connect(
   mapStateToProps,
-  { fetchInfo, fetchRepos }
+  mapDispatchToProps
 )(Main);

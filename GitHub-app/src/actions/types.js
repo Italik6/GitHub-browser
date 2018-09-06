@@ -1,2 +1,4 @@
 export const FETCH_INFO = "FETCH_INFO";
 export const FETCH_REPOS = "FETCH_REPOS";
+export const FETCH_INFO_REQUEST = "FETCH_INFO_REQUEST";
+export const FETCH_REPO_REQUEST = "FETCH_REPO_REQUEST";

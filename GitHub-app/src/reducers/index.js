@@ -3,5 +3,6 @@ import infoReducer from "./infoReducer";
 
 export default combineReducers({
   info: infoReducer,
-  repos: infoReducer
+  repos: infoReducer,
+  isFetching: infoReducer
 });

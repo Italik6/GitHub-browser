@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
@@ -15,7 +14,6 @@ export class SearchInput extends Component {
           autoFocus={autoFocus}
           onChange={this.props.onChange}
           margin="normal"
-          defaultValue="Italik6"
           placeholder="Search for a user"
         />
         <Button onClick={this.props.onClick}>Search</Button>
@@ -23,11 +21,3 @@ export class SearchInput extends Component {
     );
   }
 }
-
-// SearchInput.propTypes = {
-//   image_url: PropTypes.string,
-//   name: PropTypes.string,
-//   brewers_tips: PropTypes.string,
-//   abv: PropTypes.number,
-//   description: PropTypes.bool
-// };
