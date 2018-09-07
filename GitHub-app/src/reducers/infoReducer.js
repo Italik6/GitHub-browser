@@ -2,7 +2,9 @@ import {
   FETCH_INFO,
   FETCH_REPOS,
   FETCH_INFO_REQUEST,
-  FETCH_REPO_REQUEST
+  FETCH_REPO_REQUEST,
+  FETCH_INFO_FAILED,
+  FETCH_REPO_FAILED
 } from "../actions/types";
 
 const initialState = {
@@ -24,6 +26,12 @@ export default function(state = initialState, action) {
         isFetching: false,
         info: action.payload
       };
+    case FETCH_INFO_FAILED:
+      return {
+        ...state,
+        isFetching: false,
+        info: action.payload
+      };
     case FETCH_REPO_REQUEST:
       return {
         ...state,
@@ -33,6 +41,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         repos: action.payload
+      };
+    case FETCH_REPO_FAILED:
+      return {
+        ...state,
+        isFetching: false,
+        info: action.payload
       };
     default:
       return state;

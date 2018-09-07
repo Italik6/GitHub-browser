@@ -5,7 +5,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
-export const UserInfo = (props) => {
+export const UserInfo = props => {
+  // check if we've had already data to show
   if (props.user.avatar_url === undefined) {
     return null;
   }
@@ -22,8 +23,10 @@ export const UserInfo = (props) => {
         </Typography>
         <Typography component="p">Login: {props.user.login}</Typography>
         <Typography component="p">
-          Email:{" "}
-          {props.user.email === null ? "N/A" : props.user.email}
+          Email: {props.user.email === null ? "N/A" : props.user.email}
+        </Typography>
+        <Typography component="p">
+          Public repos: {props.user.public_repos}
         </Typography>
       </CardContent>
     </Card>

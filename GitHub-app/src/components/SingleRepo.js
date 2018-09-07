@@ -6,8 +6,8 @@ import Typography from "@material-ui/core/Typography";
 
 export const SingleRepo = props => {
   return (
-    <a target="_blank" href={props.svn_url} className="m-2 single-repos">
-      <Card className="single-repos">
+    <Card className="single-repos m-2">
+      <a target="_blank" href={props.svn_url}>
         <CardContent>
           <Typography gutterBottom variant="headline" component="h2">
             {props.name}
@@ -16,8 +16,8 @@ export const SingleRepo = props => {
             Last update: {props.updated_at.substring(0, 10)}
           </Typography>
         </CardContent>
-      </Card>
-    </a>
+      </a>
+    </Card>
   );
 };
 

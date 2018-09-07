@@ -12,9 +12,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      userInput: ""
-    };
+    this.state = { userInput: "" };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -24,7 +22,7 @@ class Main extends Component {
   handleChange = e => {
     this.setState({ userInput: e.target.value });
   };
-
+// "enter" click event on search button
   handleKeyPress = e => {
     if (e.key === "Enter") {
       this.handleFetchUserInfo();
@@ -32,10 +30,9 @@ class Main extends Component {
   };
 
   handleFetchUserInfo = () => {
-    this.props.createLoadingSelector;
     this.props.fetchRepos(this.state.userInput);
     this.props.fetchInfo(this.state.userInput);
-    // reset input value
+    // reset input value after click search button
     const userInputValue = document.getElementById("search");
     userInputValue != null ? (userInputValue.value = "") : null;
   };
@@ -62,6 +59,7 @@ Main.propTypes = {
   fetchRepos: PropTypes.func.isRequired
 };
 
+// connect react with redux
 const mapStateToProps = state => ({
   info: state.info.info,
   isFetching: state.isFetching.isFetching,
