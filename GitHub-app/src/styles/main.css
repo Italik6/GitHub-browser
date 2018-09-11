@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css?family=Pacifico");
+h1 {
+  font-family: "Pacifico", cursive;
+  text-align: center;
+  font-size: 40px;
+  color: #ffa500;
+}
+
+a {
+  text-decoration: none;
+}
+
+.user-info-card {
+  max-width: 300px;
+}
+
+.avatar {
+  height: 300px;
+}
+
+.single-repos {
+  transition: all 0.2s ease-in-out;
+}
+
+.single-repos:hover {
+  transform: scale(1.007);
+  background-color: #fff4db !important;
+}
+
+.m-2 {
+  margin: 20px 0;
+}
