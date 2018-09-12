@@ -27,7 +27,7 @@ export const fetchInfo = userInput => dispatch => {
       });
     })
     .catch(error => {
-      if (userInput === "") {
+      if (userInput.trim().length === 0) {
         alert("Enter a value to the input.");
       } else {
         alert(
@@ -42,7 +42,7 @@ export const fetchInfo = userInput => dispatch => {
 };
 
 export const fetchRepos = userInput => dispatch => {
-  let url = `https://api.github.com/users/${userInput}/repos`;
+  const url = `https://api.github.com/users/${userInput}/repos`;
 
   dispatch({ type: FETCH_REPO_REQUEST });
 

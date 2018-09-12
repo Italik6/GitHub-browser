@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 
 export const UserInfo = props => {
   // check if we've had already data to show
-  if (props.user.avatar_url === undefined) {
+  if (!props.user.avatar_url) {
     return null;
   }
   return (

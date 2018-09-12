@@ -11,12 +11,7 @@ import { bindActionCreators } from "redux";
 class Main extends Component {
   constructor(props) {
     super(props);
-
     this.state = { userInput: "" };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleFetchUserInfo = this.handleFetchUserInfo.bind(this);
   }
 
   handleChange = e => {
